@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbie Lab Portal</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(0deg, #D7198E 0%, #BB0E79 100%);
+            flex-direction: column;
+            gap: 30px;
+        }
+        .menu-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 4px solid #fff;
+            max-width: 500px;
+        }
+        h1 {
+            color: #D7198E;
+            font-family: 'Bartex', sans-serif; 
+            margin-bottom: 30px;
+            font-size: 48px;
+            text-transform: uppercase;
+        }
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin: 15px 0;
+            text-decoration: none;
+            color: white;
+            background-color: #D7198E;
+            font-size: 24px;
+            border-radius: 10px;
+            border: 2px solid white;
+            transition: transform 0.2s, background 0.2s;
+            font-weight: bold;
+        }
+        .menu-btn:hover {
+            transform: scale(1.05);
+            background-color: #ff69b4;
+        }
+        .admin-btn { background-color: #BB0E79; } 
+    </style>
+</head>
+<body>
+
+    <div class="menu-card">
+        <h1>Welcome to Barbie Lab</h1>
+        <p style="margin-bottom: 20px; font-size: 18px;">Оберіть режим роботи:</p>
+        
+        <a href="page1.html" class="menu-btn admin-btn">Адмін-панель (Page 1)</a>
+        
+        <a href="page2.html" class="menu-btn">Клієнт-перегляд (Page 2)</a>
+    </div>
+
+</body>
+</html>

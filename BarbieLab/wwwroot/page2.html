@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbie Land</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="grid-container">
+        
+        <header class="header">
+            <img class="header-decor" src="img/upper_hearts.png" alt="">
+            
+            <div class="header-inner">
+                <div class="title-box">
+                    <img class="logo" src="img/mattel_logo.svg" alt="Mattel">
+                    <h1>DREAM BIGGER</h1>
+                </div>
+            </div>
+
+            <div class="header-slogan">
+                Pink is everything
+            </div>
+        </header>
+        
+        <aside class="sidebar-left">
+            <div class="sidebar-content">
+                <h2>History of Barbie</h2>
+               <ul class="history-list">
+                    <li><strong>The Prototype:</strong> Inspired by Bild Lilli, a German comic character originally intended for adults.</li>
+                    <li><strong>True Identity:</strong> Her full name is Barbara Millicent Roberts, debuted in 1959.</li>
+                    <li><strong>Workforce Icon:</strong> She has held over 200 careers, including going to space four years before the moon landing.</li>
+                    <li><strong>Cinema History:</strong> The 2023 live-action film grossed over $1.4 billion, becoming Warner Bros.' biggest hit.</li>
+                    <li><strong>Media Empire:</strong> Beyond dolls, the brand includes 40+ animated movies and classic video games like Barbie Horse Adventures.</li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-bottom-images">
+                <img class="pink-heart" src="img/pink_heart.png" alt="Heart">
+                <img class="ken-barbie" src="img/barbie_and_ken.png" alt="Ken & Barbie">
+            </div>
+        </aside>
+
+		<main class="main-content" style="overflow: auto; display: block;">
+			<h2 style="text-align: center; color: white; margin-top: 20px;">Live Updates</h2>
+			<div id="resultContainer" class="collapse-container">
+				Loading...
+			</div>
+		</main>
+
+		<script>
+			const API_URL = '/api/collapse';
+
+			window.toggleCollapse = function(elementId) {
+				const content = document.getElementById(elementId);
+				
+				if (content.style.height && content.style.height !== '0px') {
+					content.style.height = '0px';
+				} else {
+					content.style.height = content.scrollHeight + "px";
+				}
+			};
+
+			function renderCollapse(data) {
+				const container = document.getElementById('resultContainer');
+
+				let openBlocks = [];
+				const currentOpen = container.querySelectorAll('.collapse');
+				currentOpen.forEach(el => {
+					if (el.style.height && el.style.height !== '0px') {
+						openBlocks.push(el.id);
+					}
+				});
+
+				container.innerHTML = ''; 
+
+				if (!data || data.length === 0) {
+					container.innerHTML = '<div style="background:white; padding:10px;">Даних немає</div>';
+					return;
+				}
+
+				data.forEach((item, index) => {
+					const uniqueId = `collapseExample${index}`;
+
+					const button = document.createElement('button');
+					button.className = 'btn-barbie';
+					button.type = 'button';
+					button.innerText = item.title;
+					button.onclick = () => toggleCollapse(uniqueId);
+
+					const collapseDiv = document.createElement('div');
+					collapseDiv.className = 'collapse';
+					collapseDiv.id = uniqueId;
+
+					const cardBody = document.createElement('div');
+					cardBody.className = 'card-body';
+					cardBody.innerText = item.content;
+
+					collapseDiv.appendChild(cardBody);
+					container.appendChild(button);
+					container.appendChild(collapseDiv);
+
+					if (openBlocks.includes(uniqueId)) {
+						collapseDiv.style.height = 'auto'; 
+					}
+				});
+			}
+
+			async function fetchData() {
+				try {
+					const response = await fetch(API_URL);
+					if (response.ok) {
+						const data = await response.json();
+						renderCollapse(data);
+					}
+				} catch (e) {
+					console.error("Помилка:", e);
+				}
+			}
+
+			fetchData();
+			setInterval(fetchData, 5000); 
+		</script>
+
+        <aside class="sidebar-right">
+            <div class="card pink-card">
+                <h3>The Dreamhouse</h3>
+                <div class="card-image-wrapper">
+                    <img src="img/dreamhouse.png" alt="Dreamhouse">
+                </div>
+            </div>
+            
+            <div class="card purple-card">
+                <h3>Video Games</h3>
+                <div class="card-image-wrapper">
+                    <img src="img/barbie_diary.png" alt="Games">
+                </div>
+            </div>
+        </aside>
+
+        <footer class="footer">
+            
+            <div class="footer-top-row">
+                <div class="welcome-box-footer">
+                    <h2>WELCOME TO<br>BARBIE LAND</h2>
+                </div>
+                <img class="down-hearts" src="img/down_hearts.png" alt="">
+            </div>
+
+            <div class="footer-bottom-row">
+                <img class="wave" src="img/wave.svg" alt="">
+                
+                <div class="footer-overlay">
+                    <nav class="footer-nav">
+                        <ul class="nav-columns">
+                            <li><a href="index.html" target="_blank">The Dreamhouse</a></li>
+                            <li><a href="index.html" target="_blank">The Closet</a></li>
+                            <li><a href="index.html" target="_blank">Pink Secrets</a></li>
+                            <li><a href="index.html" target="_blank">On Screen</a></li>
+                            <li><a href="index.html" target="_blank">Signature Looks</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="footer-images">
+                        <img class="western-barbie" src="img/western_barbie.png" alt="Western Barbie">
+                        <img class="doll-house" src="img/doll_house.png" alt="House">
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

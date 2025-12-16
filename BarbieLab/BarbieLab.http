@@ -1,0 +1,6 @@
+@BarbieLab_HostAddress = http://localhost:5293
+
+GET {{BarbieLab_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
